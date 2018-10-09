@@ -3,11 +3,13 @@ import subprocess
 import webbrowser
 import gi
 
+from config import Config
+
 gi.require_version('Gtk', '3.0')
 
 from gi.repository import Gtk
 from notifier import Notifier
-from settings import Settings
+
 
 class Menu:
 
@@ -32,13 +34,16 @@ class Menu:
 
         self.menu.append(item)
 
-    def notifications(self, source):
+    @staticmethod
+    def notifications(source):
         webbrowser.open(Menu.GITHUB_NOTIFICATIONS)
 
-    def settings(self, source):
-        Settings().open()
+    @staticmethod
+    def settings(source):
+        subprocess.Popen([Config.APP_PATH + "/settings.py", "settings"])
 
-    def quit(self, source):
+    @staticmethod
+    def quit(source):
         Notifier.stop()
         Gtk.main_quit()
 

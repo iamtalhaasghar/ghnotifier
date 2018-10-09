@@ -71,9 +71,13 @@ class Settings(Gtk.Window):
         self.config.set('accessToken', self.entry.get_text())
         self.config.set('refreshTime', str(self.refreshTime))
         self.config.update()
-        self.close()
+        Gtk.main_quit()
 
     def open(self):
         self.connect("delete-event", Gtk.main_quit)
         self.set_resizable(False)
         self.show_all()
+        Gtk.main()
+
+
+Settings().open()

@@ -21,6 +21,15 @@ class Notifier:
         Notify.init(indicator.INDICATOR_ID)
 
     def notify(self):
+        self.config.refresh()
+        GLib.timeout_add_seconds(int(self.config.get('refreshTime')), self.notify)
+
+        if not self.config.has('accessToken'):
+            Notify.Notification.new(
+                "Missing Access Token", "Please go to settings and add an Access token."
+            ).show()
+            return
+
         notifications = self.get_notifications()
 
         for notification in notifications:
@@ -31,8 +40,6 @@ class Notifier:
                 self.notified.append(notification['id'])
 
         self.indicator.update_label(str(len(notifications)))
-
-        GLib.timeout_add_seconds(int(self.config.get('refreshTime')), self.notify)
 
     def get_notifications(self):
         response = requests.get(
