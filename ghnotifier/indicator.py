@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+
 import gi
 
 gi.require_version('AppIndicator3', '0.1')
 
 from gi.repository import AppIndicator3, GObject
-from config import Config
+from .config import Config
 
 
 class Indicator:

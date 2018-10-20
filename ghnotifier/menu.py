@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
+
 import subprocess
 import webbrowser
 import gi
 
-from config import Config
+from .config import Config
 
 gi.require_version('Gtk', '3.0')
 
 from gi.repository import Gtk
-from notifier import Notifier
+from .notifier import Notifier
 
 
 class Menu:

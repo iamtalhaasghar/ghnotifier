@@ -4,7 +4,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 
 from gi.repository import Gtk
-from config import Config
+from .config import Config
 
 
 class Settings(Gtk.Window):

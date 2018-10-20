@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
+
 import gi
 import requests
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
 
-from gi.repository import Gtk, GLib, Notify
-from config import Config
+from gi.repository import GLib, Notify
+from .config import Config
 
 
 class Notifier:
