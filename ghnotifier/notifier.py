@@ -7,7 +7,7 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
 
 from gi.repository import GLib, Notify
-from .config import Config
+from ghnotifier.config import Config
 
 
 class Notifier:
@@ -33,6 +33,9 @@ class Notifier:
 
         notifications = self.get_notifications()
 
+        if notifications is None:
+            return
+
         for notification in notifications:
             if not self.is_notified(notification['id']):
                 Notify.Notification.new(
@@ -50,6 +53,12 @@ class Notifier:
                 'User-Agent': 'my app'
             }
         )
+
+        if response.status_code != 200:
+            Notify.Notification.new(
+                "Something went wrong", "Github didn't respond as expected, check if your access token is correct."
+            ).show()
+            return
 
         return response.json()
 
