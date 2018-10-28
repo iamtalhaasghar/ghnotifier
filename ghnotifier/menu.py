@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 
-import subprocess
 import webbrowser
 import gi
-
-from ghnotifier.config import Config
 
 gi.require_version('Gtk', '3.0')
 
 from gi.repository import Gtk
 from ghnotifier.notifier import Notifier
+from ghnotifier.settings import Settings
 
 
 class Menu:
@@ -41,7 +39,7 @@ class Menu:
 
     @staticmethod
     def settings(source):
-        subprocess.Popen([Config.APP_PATH + "/settings.py", "settings"])
+        Settings().open()
 
     @staticmethod
     def quit(source):
