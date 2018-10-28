@@ -1,10 +1,22 @@
 #!/usr/bin/env python3
 
+import os
+
 from setuptools import setup
+from setuptools.command.install import install
+
+
+class InstallScript(install):
+
+    def run(self):
+        # change file permission because pip keeps removing them
+        os.chmod(os.path.dirname(os.path.abspath(__file__)) + '/ghnotifier/settings.py', 0o775)
+        install.run(self)
+
 
 setup(
     name='ghnotifier',
-    version='0.1',
+    version='0.1.5',
     description='Github notifications.',
     url='http://github.com/kunicmarko20/ghnotifier',
     author='Marko Kunic',
@@ -16,5 +28,7 @@ setup(
         'configparser',
         'requests'
     ],
-    zip_safe=False
+    cmdclass={'install': InstallScript},
+    zip_safe=False,
+    include_package_data=True
 )
